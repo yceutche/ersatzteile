@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { FileText, Mail, MessageCircle, AlertTriangle } from 'lucide-react'
-import type { Part, Category } from '../../types'
+import type { Part, Category, Language } from '../../types'
 import catalogData from '../../data/parts.json'
 import { useWishlistStore } from '../../store/wishlistStore'
 import { useSettingsStore } from '../../store/settingsStore'
@@ -17,9 +18,10 @@ export function ExportScreen() {
   const settings = useSettingsStore(s => s)
   const items = useWishlistStore(s => s.items)
   const empty = items.length === 0
+  const [pdfLang, setPdfLang] = useState<Language>(lang)
 
   const handlePDF = () => {
-    generatePDF(items, parts, categories, settings, lang)
+    generatePDF(items, parts, categories, settings, lang, pdfLang)
   }
 
   const handleEmail = () => {
@@ -47,14 +49,46 @@ export function ExportScreen() {
         )}
 
         <div className="flex flex-col gap-3">
-          <ExportCard
-            icon={<FileText size={28} className="text-primary" />}
-            title={t('export_pdf', lang)}
-            desc={t('export_pdf_desc', lang)}
-            btnLabel={t('export_pdf_btn', lang)}
-            disabled={empty}
-            onClick={handlePDF}
-          />
+          {/* PDF card with language selector */}
+          <div className={`bg-surface rounded-xl shadow-sm p-4 flex flex-col gap-3 ${empty ? 'opacity-50' : ''}`}>
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 pt-0.5">
+                <FileText size={28} className="text-primary" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-semibold text-text-primary text-sm">{t('export_pdf', lang)}</p>
+                <p className="text-xs text-text-secondary mt-0.5">{t('export_pdf_desc', lang)}</p>
+              </div>
+              <button
+                onClick={handlePDF}
+                disabled={empty}
+                className="flex-shrink-0 bg-primary text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-primary-dark disabled:cursor-not-allowed transition-colors"
+                aria-disabled={empty}
+              >
+                {t('export_pdf_btn', lang)}
+              </button>
+            </div>
+            {/* Language toggle */}
+            <div className="flex items-center gap-3 pl-11">
+              <span className="text-xs text-text-secondary font-medium">{t('export_pdf_lang', lang)}:</span>
+              <div className="flex rounded-full border border-gray-200 overflow-hidden text-xs font-semibold">
+                <button
+                  onClick={() => setPdfLang('de')}
+                  className={`px-4 py-1.5 transition-colors ${pdfLang === 'de' ? 'bg-primary text-white' : 'bg-white text-text-secondary hover:bg-gray-50'}`}
+                  aria-pressed={pdfLang === 'de'}
+                >
+                  DE
+                </button>
+                <button
+                  onClick={() => setPdfLang('fr')}
+                  className={`px-4 py-1.5 transition-colors ${pdfLang === 'fr' ? 'bg-primary text-white' : 'bg-white text-text-secondary hover:bg-gray-50'}`}
+                  aria-pressed={pdfLang === 'fr'}
+                >
+                  FR
+                </button>
+              </div>
+            </div>
+          </div>
           <ExportCard
             icon={<Mail size={28} className="text-primary" />}
             title={t('export_email', lang)}

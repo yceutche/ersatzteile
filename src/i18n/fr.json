@@ -35,6 +35,8 @@
   "export_pdf": "Télécharger PDF",
   "export_pdf_desc": "Enregistrer ou imprimer le document en PDF",
   "export_pdf_btn": "Créer",
+  "export_pdf_lang": "Langue du PDF",
+  "pdf_col_name": "Désignation",
   "export_email": "Envoyer par e-mail",
   "export_email_desc": "Ouvre votre application mail avec le message prérempli",
   "export_email_btn": "Envoyer",

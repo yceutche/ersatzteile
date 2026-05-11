@@ -35,6 +35,8 @@
   "export_pdf": "PDF herunterladen",
   "export_pdf_desc": "Dokument als PDF speichern oder drucken",
   "export_pdf_btn": "Erstellen",
+  "export_pdf_lang": "PDF-Sprache",
+  "pdf_col_name": "Bezeichnung",
   "export_email": "Per E-Mail senden",
   "export_email_desc": "Öffnet Ihre Mail-App mit vorausgefüllter Nachricht",
   "export_email_btn": "Senden",
