@@ -5,6 +5,7 @@ import type { Part, Category } from '../../types'
 import { useWishlistStore } from '../../store/wishlistStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import { t } from '../../utils/i18n'
+import { sanitize } from '../../utils/sanitize'
 
 interface Props {
   part: Part
@@ -16,7 +17,7 @@ const FALLBACK = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" w
 export function PartCard({ part, category }: Props) {
   const navigate = useNavigate()
   const lang = useSettingsStore(s => s.language)
-  const { isInWishlist, addItem, removeItem, updateQty, getItem } = useWishlistStore()
+  const { isInWishlist, addItem, removeItem, updateQty, updateNote, getItem } = useWishlistStore()
   const inList = isInWishlist(part.id)
   const wishlistItem = getItem(part.id)
   const [imgSrc, setImgSrc] = useState(part.images[0]?.url ?? FALLBACK)
@@ -24,7 +25,7 @@ export function PartCard({ part, category }: Props) {
 
   return (
     <article
-      className={`bg-surface rounded-lg shadow-sm flex gap-3 p-3 cursor-pointer transition-all
+      className={`bg-surface rounded-lg shadow-sm flex flex-col gap-2 p-3 cursor-pointer transition-all
         ${inList ? 'border-l-4 border-success' : 'border-l-4 border-transparent'}`}
       onClick={() => navigate(`/part/${part.id}`)}
       role="button"
@@ -32,6 +33,7 @@ export function PartCard({ part, category }: Props) {
       onKeyDown={e => e.key === 'Enter' && navigate(`/part/${part.id}`)}
       aria-label={`${part.nameDe} / ${part.nameFr}`}
     >
+      <div className="flex gap-3">
       {/* Thumbnail */}
       <div className="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden bg-gray-100">
         <img
@@ -167,6 +169,21 @@ export function PartCard({ part, category }: Props) {
           </>
         )}
       </div>
+      </div>
+      {/* Comment input — only when in wishlist */}
+      {inList && (
+        <div onClick={e => e.stopPropagation()}>
+          <input
+            type="text"
+            value={wishlistItem?.note ?? ''}
+            maxLength={200}
+            placeholder={t('comment_placeholder', lang)}
+            onChange={e => updateNote(part.id, sanitize(e.target.value))}
+            className="w-full text-xs text-text-primary bg-gray-50 border border-gray-200 rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-text-secondary"
+            aria-label={t('comment', lang)}
+          />
+        </div>
+      )}
     </article>
   )
 }

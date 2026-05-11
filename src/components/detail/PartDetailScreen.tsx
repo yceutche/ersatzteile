@@ -10,6 +10,7 @@ import { OfflineBanner } from '../shared/OfflineBanner'
 import { useWishlistStore } from '../../store/wishlistStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import { t } from '../../utils/i18n'
+import { sanitize } from '../../utils/sanitize'
 
 const parts = catalogData.parts as Part[]
 const categories = catalogData.categories as Category[]
@@ -19,7 +20,7 @@ const FALLBACK = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" w
 export function PartDetailScreen() {
   const { id } = useParams<{ id: string }>()
   const lang = useSettingsStore(s => s.language)
-  const { isInWishlist, addItem, removeItem } = useWishlistStore()
+  const { isInWishlist, addItem, removeItem, updateNote, getItem } = useWishlistStore()
 
   const part = parts.find(p => p.id === id)
   const [imgIndex, setImgIndex] = useState(0)
@@ -38,6 +39,7 @@ export function PartDetailScreen() {
 
   const category = categories.find(c => c.id === part.category)
   const inList = isInWishlist(part.id)
+  const wishlistItem = getItem(part.id)
 
   return (
     <div className="flex flex-col min-h-screen bg-bg">
@@ -117,7 +119,19 @@ export function PartDetailScreen() {
 
       {/* Sticky CTA */}
       <div className="fixed bottom-16 left-0 right-0 z-40 px-4 pb-2 max-w-2xl mx-auto">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col gap-2">
+          {inList && (
+            <input
+              type="text"
+              value={wishlistItem?.note ?? ''}
+              maxLength={200}
+              placeholder={t('comment_placeholder', lang)}
+              onChange={e => updateNote(part.id, sanitize(e.target.value))}
+              className="w-full text-xs text-text-primary bg-white border border-gray-200 rounded-full px-4 py-2 shadow focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-text-secondary"
+              aria-label={t('comment', lang)}
+            />
+          )}
+          <div className="flex items-center gap-2">
           {!inList && (
             <div className="flex items-center gap-1 bg-white rounded-full shadow px-2 py-1">
               <button
@@ -157,6 +171,7 @@ export function PartDetailScreen() {
             {inList ? <Check size={18} /> : <Plus size={18} />}
             {inList ? t('in_wishlist', lang) : t('add_to_wishlist', lang)}
           </button>
+          </div>
         </div>
       </div>
     </div>
