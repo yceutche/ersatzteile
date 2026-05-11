@@ -1,9 +1,9 @@
 name = "ersatzteile-mf1014"
 compatibility_date = "2026-05-11"
+pages_build_output_dir = "dist"
 
 [build]
 command = "npm run build"
-destination = "dist"
 
 [env.production]
 name = "ersatzteile-mf1014"
