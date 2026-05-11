@@ -399,6 +399,18 @@
       "critical": false
     },
     {
+      "id": "inj-injection-pump",
+      "category": "injection",
+      "nameDe": "Einspritzpumpe (CAV/DPA)",
+      "nameFr": "Pompe d'injection (CAV/DPA)",
+      "defaultQty": 1,
+      "reasonDe": "Erzeugt den nötigen Einspritzdruck und dosiert die Kraftstoffmenge für jeden Zylinder. Eine defekte Pumpe verursacht Leistungsverlust, unruhigen Lauf, Startprobleme oder keinen Start. Am MF 1014 (Perkins AD3.152) wird die CAV DPA Verteilerpumpe verbaut.",
+      "reasonFr": "Génère la pression d'injection et dose le carburant dans chaque cylindre. Une pompe défectueuse provoque une perte de puissance, des ratés, des difficultés de démarrage ou l'impossibilité de démarrer. Le MF 1014 (Perkins AD3.152) est équipé de la pompe distributrice CAV DPA.",
+      "images": [{ "url": "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80", "alt": "Einspritzpumpe CAV DPA / Pompe injection CAV DPA", "credit": "Unsplash", "width": 800, "height": 600 }],
+      "tags": ["injection", "pump", "CAV", "DPA", "critical"],
+      "critical": true
+    },
+    {
       "id": "inj-feed-pump",
       "category": "injection",
       "nameDe": "Kraftstoffförderpumpe",
