@@ -29,6 +29,8 @@
   "confirm": "Bestätigen",
   "cancel": "Abbrechen",
   "total_items": "Artikel gesamt",
+  "comment": "Kommentar",
+  "comment_placeholder": "Anmerkung hinzufügen…",
   "export_title": "Exportieren / Teilen",
   "export_pdf": "PDF herunterladen",
   "export_pdf_desc": "Dokument als PDF speichern oder drucken",
@@ -67,6 +69,7 @@
   "pdf_col_de": "Deutsch",
   "pdf_col_fr": "Français",
   "pdf_col_cat": "Kategorie",
+  "pdf_col_comment": "Kommentar",
   "pdf_footer": "Wichtig: Für teure Teile Referenz mit Typenschild-Foto bestätigen.",
   "email_subject": "Ersatzteile MF 1014 — Bestellung",
   "whatsapp_header": "Ersatzteile MF 1014 — Bestellung"

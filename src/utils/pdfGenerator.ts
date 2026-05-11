@@ -41,6 +41,7 @@ export function generatePDF(
       sanitize(part.nameDe),
       sanitize(part.nameFr),
       sanitize(catMap[part.category] ?? part.category),
+      sanitize(item.note ?? ''),
     ]
   }).filter(Boolean) as string[][]
 
@@ -51,12 +52,13 @@ export function generatePDF(
       t('pdf_col_de', lang),
       t('pdf_col_fr', lang),
       t('pdf_col_cat', lang),
+      t('pdf_col_comment', lang),
     ]],
     body: rows,
     headStyles: { fillColor: [27, 108, 168] },
     alternateRowStyles: { fillColor: [245, 245, 245] },
     styles: { fontSize: 9, cellPadding: 2 },
-    columnStyles: { 0: { halign: 'center', cellWidth: 12 } },
+    columnStyles: { 0: { halign: 'center', cellWidth: 12 }, 4: { cellWidth: 40 } },
   })
 
   // Footer

@@ -14,7 +14,7 @@ const categories = catalogData.categories as Category[]
 
 export function WishlistScreen() {
   const lang = useSettingsStore(s => s.language)
-  const { items, removeItem, updateQty, clearAll } = useWishlistStore()
+  const { items, removeItem, updateQty, updateNote, clearAll } = useWishlistStore()
   const [confirmClear, setConfirmClear] = useState(false)
 
   if (items.length === 0) {
@@ -92,32 +92,33 @@ export function WishlistScreen() {
                   const part = parts.find(p => p.id === item.partId)
                   if (!part) return null
                   return (
-                    <div key={item.partId} className="bg-surface rounded-lg shadow-sm flex items-center gap-3 p-3">
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-text-primary truncate">
-                          {lang === 'de' ? part.nameDe : part.nameFr}
-                        </p>
-                        <p className="text-xs text-text-secondary truncate">
-                          {lang === 'de' ? part.nameFr : part.nameDe}
-                        </p>
-                      </div>
-                      {/* Qty controls */}
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => updateQty(item.partId, item.qty - 1)}
-                          disabled={item.qty <= 1}
-                          className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-40 hover:bg-gray-200 transition-colors"
-                          aria-label="Decrease quantity"
-                        >
-                          <Minus size={12} />
-                        </button>
-                        <input
-                          type="number"
-                          value={item.qty}
-                          min={1}
-                          max={999}
-                          onChange={e => {
-                            const v = parseInt(e.target.value, 10)
+                    <div key={item.partId} className="bg-surface rounded-lg shadow-sm flex flex-col gap-2 p-3">
+                      <div className="flex items-center gap-3">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-semibold text-text-primary truncate">
+                            {lang === 'de' ? part.nameDe : part.nameFr}
+                          </p>
+                          <p className="text-xs text-text-secondary truncate">
+                            {lang === 'de' ? part.nameFr : part.nameDe}
+                          </p>
+                        </div>
+                        {/* Qty controls */}
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={() => updateQty(item.partId, item.qty - 1)}
+                            disabled={item.qty <= 1}
+                            className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-40 hover:bg-gray-200 transition-colors"
+                            aria-label="Decrease quantity"
+                          >
+                            <Minus size={12} />
+                          </button>
+                          <input
+                            type="number"
+                            value={item.qty}
+                            min={1}
+                            max={999}
+                            onChange={e => {
+                              const v = parseInt(e.target.value, 10)
                             if (!isNaN(v) && v >= 1 && v <= 999) updateQty(item.partId, v)
                           }}
                           className="w-12 text-center text-sm font-semibold bg-gray-100 rounded-md py-1 focus:outline-none focus:ring-2 focus:ring-primary"
@@ -138,6 +139,17 @@ export function WishlistScreen() {
                       >
                         <Trash2 size={16} />
                       </button>
+                      </div>
+                      {/* Comment input */}
+                      <input
+                        type="text"
+                        value={item.note ?? ''}
+                        maxLength={200}
+                        placeholder={t('comment_placeholder', lang)}
+                        onChange={e => updateNote(item.partId, e.target.value)}
+                        className="w-full text-xs text-text-primary bg-gray-50 border border-gray-200 rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-text-secondary"
+                        aria-label={t('comment', lang)}
+                      />
                     </div>
                   )
                 })}

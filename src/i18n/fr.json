@@ -29,6 +29,8 @@
   "confirm": "Confirmer",
   "cancel": "Annuler",
   "total_items": "articles au total",
+  "comment": "Commentaire",
+  "comment_placeholder": "Ajouter une remarque…",
   "export_title": "Exporter / Partager",
   "export_pdf": "Télécharger PDF",
   "export_pdf_desc": "Enregistrer ou imprimer le document en PDF",
@@ -67,6 +69,7 @@
   "pdf_col_de": "Deutsch",
   "pdf_col_fr": "Français",
   "pdf_col_cat": "Catégorie",
+  "pdf_col_comment": "Commentaire",
   "pdf_footer": "Important : pour les pièces coûteuses, confirmer la référence avec une photo de la plaque constructeur.",
   "email_subject": "Pièces de rechange MF 1014 — Commande",
   "whatsapp_header": "Pièces de rechange MF 1014 — Commande"

@@ -7,6 +7,7 @@ interface WishlistState {
   addItem: (partId: string, defaultQty: number) => void
   removeItem: (partId: string) => void
   updateQty: (partId: string, qty: number) => void
+  updateNote: (partId: string, note: string) => void
   clearAll: () => void
   isInWishlist: (partId: string) => boolean
   getItem: (partId: string) => WishlistItem | undefined
@@ -34,6 +35,11 @@ export const useWishlistStore = create<WishlistState>()(
           items: state.items.map(i => i.partId === partId ? { ...i, qty } : i)
         }))
       },
+
+      updateNote: (partId, note) =>
+        set(state => ({
+          items: state.items.map(i => i.partId === partId ? { ...i, note } : i)
+        })),
 
       clearAll: () => set({ items: [] }),
 
