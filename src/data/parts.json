@@ -2,7 +2,7 @@
   "version": 1,
   "categories": [
     { "id": "base",          "nameDe": "Basis / Hauptteile",             "nameFr": "Base — pièces principales",           "color": "#1B6CA8", "icon": "wrench",       "sortOrder": 1 },
-    { "id": "filters",       "nameDe": "Filtres",                        "nameFr": "Filtres",                              "color": "#0277BD", "icon": "filter",       "sortOrder": 2 },
+    { "id": "filters",       "nameDe": "Filter",                         "nameFr": "Filtres",                              "color": "#0277BD", "icon": "filter",       "sortOrder": 2 },
     { "id": "cooling",       "nameDe": "Kühlung",                        "nameFr": "Refroidissement",                      "color": "#00838F", "icon": "thermometer",  "sortOrder": 3 },
     { "id": "hydraulics",    "nameDe": "Hydraulik & Frontlader",         "nameFr": "Hydraulique et chargeur frontal",      "color": "#2E7D32", "icon": "droplets",     "sortOrder": 4 },
     { "id": "front-axle",    "nameDe": "Vorderachse & Lenkung",          "nameFr": "Pont avant, direction et transmission","color": "#558B2F", "icon": "circle",       "sortOrder": 5 },
